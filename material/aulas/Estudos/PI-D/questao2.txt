@@ -1,0 +1,8 @@
+Q: Com relação ao problema anterior, a estratégia gulosa nos garante uma solução ótima? Justifique.
+
+R: Não, o algoritmo da heurística gulosa não garante uma solução ótima global.
+Em alguns casos é possível que ele atinja tal solução, porém ele é muito dependente da entrada.
+Entradas onde existe muita heterogeneidade seriam mais problemáticas, como por exemplo uma entrada
+onde existem jobs muito grandes e jobs muito pequenos, é possível que o tempo fique mal distribuído
+por conta dos jobs grandes ocupando muito espaço. Ainda assim, parece que nesse caso tem um raio de
+aproximação muito bom.

@@ -1,0 +1,29 @@
+Uma estratégia de busca exaustiva para resolver o problema de alocação de jobs em máquinas pode ser implementada da seguinte maneira:
+
+Crie uma matriz de alocação de jobs com m linhas e n colunas. Cada célula (i, j) representa a alocação do job j na máquina i. Inicialmente, todas as células serão preenchidas com 0.
+Crie uma lista de todas as permutações dos jobs. Para cada permutação, faça o seguinte:
+a. Para cada job j na permutação, aloque-o na máquina i com a menor carga atual (ou seja, a máquina com a soma dos tempos dos jobs mais baixa).
+b. Após alocar todos os jobs na permutação, calcule a soma dos tempos dos jobs para cada máquina e encontre a máquina com a maior carga.
+c. Salve a carga da máquina mais carregada como a melhor carga encontrada até agora.
+Após percorrer todas as permutações dos jobs, retorne a alocação de jobs que levou à melhor carga encontrada.
+
+Segue um pseudocódigo para essa estratégia:
+
+função busca_exaustiva(m, n, tempos_execução):
+    melhor_carga = infinito
+    melhor_alocação = matriz de zeros de tamanho m x n
+
+    para cada permutação dos jobs:
+        alocação = matriz de zeros de tamanho m x n
+        para cada job j na permutação:
+            máquina_menos_carregada = índice da máquina com a menor soma dos tempos dos jobs
+            alocação[máquina_menos_carregada, j] = 1
+        cargas = soma dos tempos dos jobs para cada máquina
+        carga_mais_carregada = máxima carga em cargas
+        se carga_mais_carregada < melhor_carga:
+            melhor_carga = carga_mais_carregada
+            melhor_alocação = alocação
+
+    retornar melhor_alocação
+
+Esse algoritmo tem complexidade O(n!), que é muito alta para valores grandes de n. Portanto, em casos práticos, é necessário usar heurísticas mais eficientes
