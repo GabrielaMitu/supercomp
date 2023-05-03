@@ -18,6 +18,7 @@ double sum = 0;
 void pi_r(long Nstart, long Nfinish, double step) {
     long i,iblk;
     if (Nfinish-Nstart < MIN_BLK){
+        // cada iteração do loop é executada por uma thread diferente
         #pragma omp parallel for reduction(+:sum) // garante que quando vai executar isso, ele vai estar com o valor do sum. Maneira automatica para criar tasks
         for (i = Nstart; i < Nfinish; i++){
             double x = (i+0.5)*step;
@@ -26,8 +27,14 @@ void pi_r(long Nstart, long Nfinish, double step) {
 
     } else {
         iblk = Nfinish-Nstart;
-        pi_r(Nstart,         Nfinish-iblk/2,step);
-        pi_r(Nfinish-iblk/2, Nfinish,       step);
+
+        // Uma thread faz duas tarefas (uma de cada vez)
+        #pragma omp single // especifica que um determinado bloco de código deve ser executado por apenas uma thread em um conjunto de threads paralelas. Somente uma thread executa o bloco de código, enquanto as outras aguardam a conclusão antes de continuar.
+            #pragma omp task
+            pi_r(Nstart,         Nfinish-iblk/2,step);
+
+            #pragma omp task
+            pi_r(Nfinish-iblk/2, Nfinish,       step);
     }
 }
 
@@ -47,8 +54,8 @@ int main () {
     cout << "tempo em segundos: " << tdata << endl;
 }
 
-// Versão usando for paralelo
-// Rodar: g++ -g -Wall -fopenmp -o pi-R pi_recursivo.cpp
+// Versão usando for parelelo e tasks
+// Rodar: g++ -g -Wall -fopenmp -o pi-RT pi_recursivo_Task.cpp
 
 // Antes => tempo em segundos: 11.5569880820003s
 // Depois de colocar o pragma omp parallel forfor => tempo em segundos: 1.84628277899992s

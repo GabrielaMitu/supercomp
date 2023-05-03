@@ -68,3 +68,7 @@ int main() {
     }
     return 0;
 }
+
+// cmd:
+// g++ -o buscaExaustiva busca-exaustiva.cpp
+// ./buscaExaustiva < "in1.txt"
