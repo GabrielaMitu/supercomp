@@ -21,3 +21,7 @@ int main(){
 
     return 0;
 }
+
+// ---- cmd ----
+// nvcc -arch=sm_70 -std=c++14 exemplo.cu -o exemplo
+// ./exemplo
