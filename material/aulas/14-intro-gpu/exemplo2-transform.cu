@@ -15,7 +15,7 @@ int main() {
     thrust::device_vector<double> V3(10);
     thrust::device_vector<double> V4(10);
 
-    thrust::transform(V1.begin(), V1.end(), V2.begin(), V3.begin(), thrust::plus<double>());
+    thrust::transform(V1.begin(), V1.end(), V2.begin(), V3.begin(), thrust::plus<double>()); //  aplicada elemento por elemento, somando o elemento correspondente de V1 com o elemento correspondente de V2 e armazenando o resultado em V3.
     thrust::transform(V1.begin(), V1.end(), thrust::constant_iterator<double>(0.5), V4.begin(), thrust::multiplies<double>());
 
     printf("V1: ");

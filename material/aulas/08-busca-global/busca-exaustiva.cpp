@@ -29,9 +29,11 @@ double knapsack(int W, vector<item> items, vector<item>& usados, vector<item>& m
         peso = items[0].peso;
         items.erase(items.begin()); // apaga o primeiro item do vetor de items original
         com_i = knapsack(W - peso, items, usados, melhor); // versão incluindo o item
+        //cout << "com_i: " << com_i << endl;
     }
     items2.erase(items2.begin());
     sem_i = knapsack(W, items2, usados, melhor); // versão não incluindo o item
+    //cout << "sem_i: " << sem_i << endl;
 
     double valor_atual = 0.0, valor_melhor = 0.0;
     for(auto& el: usados) {
